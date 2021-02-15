@@ -1,0 +1,32 @@
+django==3.1.6
+django-admin-sortable >= 2.2.3
+django-admin-rangefilter >= 0.6.4 
+django-import-export >= 2.5.0
+django-extensions
+
+# REDIS
+django-redis==4.10.0
+redis>=3.5.3
+
+# REST
+django-rest-passwordreset>=1.0.0
+django-rest-swagger>=2.2.0
+djangorestframework>=3.12.2
+djangorestframework-simplejwt>=4.6.0
+django-cors-headers==3.0.2
+
+django-storages==1.7.1
+
+# Db Connector
+mysqlclient >= 2.0.3
+
+# Celery
+celery >= 5.0.3 
+django-celery-results >= 2.0.1 
+# flower >=0.9.7
+
+# utils
+python-dateutil >= 2.8.1
+
+# Pagos
+mercadopago >= 1.2.0

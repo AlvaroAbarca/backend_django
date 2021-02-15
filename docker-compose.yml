@@ -1,0 +1,81 @@
+version: '3'
+services:
+  web:
+    image: main:latest
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    depends_on:
+      - db
+      - redis
+      - rabbit-mq
+      - mongo
+    env_file:
+      - .env
+
+  worker:
+    image: main:latest
+    command: celery -A main worker -B -l INFO
+    volumes:
+      - .:/code
+    depends_on:
+      - rabbit-mq
+      - db
+      - redis
+      - web
+    env_file:
+      - .env
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  flower:
+    image: mher/flower
+    ports:
+      - "5555:5555"
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    command: default_authentication_plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: db_backend
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - db-data-dev:/var/lib/mysql
+
+
+  rabbit-mq:
+    image: "rabbitmq:3-management"
+    environment:
+      RABBITMQ_DEFAULT_USER: conejomq
+      RABBITMQ_DEFAULT_PASS: mai3Iegh0iep
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - db-data-dev:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+volumes:
+  mongo-data-dev:
+  db-data-dev:
