@@ -142,8 +142,6 @@ CACHES = {
 }
 
 
-
-
 # Celery Configuration Options
 RABBITMQ_URI = "amqp://{}:{}@{}:{}/".format(
     os.environ.get("RABBITMQ_USER", "conejomq"),
@@ -179,6 +177,7 @@ REST_FRAMEWORK = {
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", 'no-reply@email.com')
 DEFAULT_ERROR_EMAIL = os.environ.get(
     "DEFAULT_ERROR_EMAIL", 'error@email.com')
+
 EMAIL_HOST = os.environ.get("EMAIL_HOST", 'smtp.mailtrap.io')
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", '091d38390eb72b')
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", '1dc28c2fc10091')
@@ -201,3 +200,4 @@ CORS_ORIGIN_ALLOW_ALL = True
 #     'x-requested-with',
 #     'bcm-project-id'
 # ]
+AUTH_USER_MODEL = 'customers.Account'
