@@ -44,7 +44,7 @@ services:
     image: mysql:latest
     ports:
       - "3306:3306"
-    command: default_authentication_plugin=mysql_native_password
+    # command: default_authentication_plugin=mysql_native_password
     environment:
       MYSQL_DATABASE: db_backend
       MYSQL_USER: admin
